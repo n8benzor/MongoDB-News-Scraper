@@ -7,16 +7,12 @@
 body {
     /* background: rgb(0, 0, 0); */
     color: rgb(58, 58, 58);
-    /* color: black; */
-    /* color: white; */
-    /* font-family: 'Crete Round', serif; */
     font-family: 'Roboto Mono', monospace;
 }
+/* background: rgb(40, 52, 37); */
 
 nav {
-    /* background: rgb(40, 52, 37); */
-    background: white;
-    /* background: none; */
+    background: none;
     font-size: small;
     color: rgb(58, 58, 58);
     border-bottom: 1px solid grey;
@@ -65,7 +61,7 @@ main {
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
         "box1 box2 box3";
-    /* border-bottom: 1px solid grey; */
+    border-bottom: 1px solid grey;
 }
 
 .box1 {
@@ -85,9 +81,10 @@ main {
 }
 
 .btn {
-    background: red;
-    color: white;
-    border-radius: 0;
+    background: none;
+    border: 2px solid red;
+    color: rgb(58, 58, 58);
+    border-radius: 5px;
 }
 
 .articles {

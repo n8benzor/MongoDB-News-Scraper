@@ -14,11 +14,12 @@ const NoteSchema = new Schema({
   body: {
       type: String,
       required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
   }
+  // ,
+  // timestamp: {
+  //   type: Date,
+  //   default: Date.now
+  // }
 });
 
 // This creates our model from the above schema, using mongoose's model method

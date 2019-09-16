@@ -16,30 +16,29 @@ app.get("/scrape", function(req, res) {
     axios.get("http://www.nfl.com/news").then(function(error, response, html) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       const $ = cheerio.load(html);
-      console.log(html)
     
-    //   $("div.news-contents li").each(function(i, element) {
+      $("div.news-contents li").each(function(i, element) {
 
-    //     // Save an empty result object
-    //     const result = {};
+        // Save an empty result object
+        const result = {};
 
-    //     result.title = $(this).children("a").text();
-    //     result.link = $(this).children("a").attr("href");
-    //     result.summary = $(this).children("p").text();
-    //     result.picture = $(this).children("img").text();       
+        result.title = $(this).children("a").text();
+        result.link = $(this).children("a").attr("href");
+        result.summary = $(this).children("p").text();
+        result.picture = $(this).children("img").text();       
 
-    //     console.log(result);
+        console.log(result);
 
-    //     // Create a new Article using the `result` object built from scraping
-    //     db.Article.create(result)
-    //       .then(function(dbArticle) {
-    //         console.log(dbArticle);
-    //       })
-    //       .catch(function(err) {
-    //         console.log(err);
-    //       });
-    //   });
-    //   res.send("Scrape Complete");
+        // Create a new Article using the `result` object built from scraping
+        db.Article.create(result)
+          .then(function(dbArticle) {
+            console.log(dbArticle);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+      });
+      res.send("Scrape Complete");
     });
   });
 
