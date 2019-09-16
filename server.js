@@ -11,6 +11,11 @@ const db = require("./models");
 
 const PORT = 3000;
 
+// Connect to the Mongo DB
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+mongoose.connect(MONGODB_URI, {userMongoClient: true});
+
 // Initialize Express
 const app = express();
 
@@ -34,10 +39,6 @@ app.set("view engine", "handlebars");
 const htmlroutes = require("./controllers/html_controller.js");
 app.use(htmlroutes);
 
-// Connect to the Mongo DB
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
 
 
 // Routes

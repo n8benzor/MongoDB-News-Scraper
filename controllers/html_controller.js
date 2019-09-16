@@ -3,10 +3,11 @@ const router = express.Router();
 
     router.get('/', function (req, res){
         res.render('home');
-    })
+    });
+
+    router.get('/saved', function (req, res){
+        res.render('saved');
+    });
 
 
-
-
-// Export routes for server.js to use.
 module.exports = router;
