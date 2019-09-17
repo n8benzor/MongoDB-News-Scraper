@@ -3,12 +3,9 @@ const express = require('express');
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser')
-// Scraping tools
-const axios = require("axios");
-const cheerio = require("cheerio");
 
-// Require all models
-const db = require("./models");
+// Initialize Express
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,11 +14,14 @@ const PORT = process.env.PORT || 3000;
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI, {userMongoClient: true});
 
-// Initialize Express
-const app = express();
+// check connection status
+let db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+    console.log("Connected to Mongoose");
+})
 
 // Configure middleware
-
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
@@ -30,9 +30,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-// Parse request body as JSON
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
@@ -45,6 +42,9 @@ app.set("view engine", "handlebars");
 // Import routes and give the server access to them.
 const htmlroutes = require("./controllers/html_controller.js");
 app.use(htmlroutes);
+const articlesroutes = require("./controllers/articles_controller");
+app.use(articlesroutes);
+
 
 
 // Start the server
