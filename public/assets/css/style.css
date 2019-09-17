@@ -18,6 +18,7 @@ nav {
     color: rgb(252,243,233);
     border-bottom: 1px solid rgb(37, 35, 31);
     /* text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black; */
+    letter-spacing: 2px;
 }
 
 nav a {
@@ -72,13 +73,20 @@ footer {
 
 main {
     margin-top: 2em;
-    /* background: grey; */
-    display: grid;
+    /* display: grid;
     grid-template-columns: 2fr 2fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
         "box1 box3";
-    /* border-bottom: 1px solid grey; */
+    border-bottom: 1px solid grey; */
+}
+
+.jumbotron {
+    background-image: url("https://i.pinimg.com/originals/f6/ea/00/f6ea000fea4f2e267ffe7ad0d1bc474c.jpg");
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
 }
 
 .box1 {
@@ -110,7 +118,7 @@ main {
 .media {
     font-size: 10pt;
     /* width: 70%; */
-    margin: 0 12%;
+    /* margin: 0 12%; */
     border: 1px solid rgb(46, 43, 39);
 }
 
@@ -118,12 +126,17 @@ main {
     color: rgb(58, 114, 52);
 }
 
+.media-body {
+    padding: 5px;
+}
+
 #article-title {
     padding: 5px;
     /* border-bottom: 1px solid rgb(46, 43, 39); */
     /* background: rgb(46, 43, 39); */
-    background: rgb(58, 114, 52);
-    font-size: 14pt;
+    /* background: rgb(58, 114, 52); */
+    font-size: 12pt;
+    color: rgb(73, 141, 65);
 }
 
 #save-article {
@@ -137,6 +150,8 @@ main {
 
 .date {
     font-size: 8pt;
+    color: rgb(252,243,233);
+    border-bottom: 1px solid rgb(46, 43, 39);
 }
 
 .buttons {
