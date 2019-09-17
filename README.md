@@ -1,1 +1,0 @@
-WEEK 18 Homework assignment: Mongo DB News Scraper.

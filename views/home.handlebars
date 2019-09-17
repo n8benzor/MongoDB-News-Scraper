@@ -1,34 +1,16 @@
-{{> header}}
+{{#if article}}
 
+{{#each article}}
+<div class="media" data-_id="{{this.id}}">
+    <img src="{{this.picture}}" class="mr-3" alt="..." id="article-pic">
+    <div class="media-body">
+        <div class="mt-0" id="article-title">{{this.headline}} <div class="date">{{this.date}}</div> </div>
+        {{this.summary}} 
+        <p> <a href="{{this.url}}">Read More </a><span id="save-article"><button type="button" class="btn btn-secondary btn-sm" id="save-article">Save Article</button></span></p>
+    </div>
+</div><br>
+{{/each}}
+{{else}}
+Press the "Scrape New Articles" button to get started.
+{{/if}}
 
-<div class="container">
-
-    <main>
-        <div class="box1">
-            <div class="logo">
-                {{!-- <img src="../public/assets/images/NFL News Scraper.svg" alt="" class="logo-pic"> --}}
-                <h4><span class="nfl">NFL </span>News Scraper</h4>
-            </div>
-        </div>
-        <div class="box2">
-            <small>Your Direct NFL News Feed</small>
-        </div>
-        <div class="box3">
-            <button class="btn">Get The Latest News</button>
-        </div>
-    </main>
-    {{!-- <section class="articles">
-        {{each articles}}
-            <div class="media">
-                <img src="{{image}}" class="mr-3" alt="...">
-                <div class="media-body">
-                    <h5 class="mt-0">{{title}}</h5>
-                    <p>{{link}}</p>
-                </div>
-        {{/each}}
-    </section> --}}
-
-</div>
-
-
-{{> footer }}

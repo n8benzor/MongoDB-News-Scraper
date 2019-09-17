@@ -1,0 +1,31 @@
+{{#if article}}
+
+{{#each article}}
+<div class="media" data-_id="{{this.id}}">
+    <img src="{{this.picture}}" class="mr-3" alt="..." id="article-pic">
+    <div class="media-body">
+        <div class="mt-0" id="article-title">{{this.headline}} <div class="date">{{this.date}}</div>
+        </div>
+        {{this.summary}}
+        <p> <a href="{{this.url}}">Read More </a><span class="buttons">
+                <button type="button" class="btn btn-secondary btn-sm" id="notes-button" data-toggle="collapse"
+                    data-target="#notes-collapse">Notes</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="delete-article">Delete</button></span>
+        </p>
+
+        <div class="collapse" id="notes-collapse">
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div><br>
+{{/each}}
+{{else}}
+<div class="message"> There are no saved artices, go back to the home page to save some articles!</div>
+{{/if}}
