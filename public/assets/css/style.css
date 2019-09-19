@@ -53,12 +53,13 @@ main {
 }
 
 .jumbotron {
-    background-image: url("https://github.com/n8benzor/MongoDB-News-Scraper/blob/master/public/assets/images/football-field2.jpg?raw=true");
+    /* background-image: url("https://github.com/n8benzor/MongoDB-News-Scraper/blob/master/public/assets/images/football-field2.jpg?raw=true"); */
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
+    background: none;
     text-align: center;
-    height: 100px;
+    height: auto;
     padding: 0;
     border-radius: 0;
 }
@@ -68,6 +69,7 @@ main {
     color: rgb(252,243,233);
     border-radius: none;
     border: none;
+    margin-top: 1em;
 }
 
 .btn:focus {
