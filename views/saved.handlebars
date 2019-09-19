@@ -1,4 +1,4 @@
-{{#if article}}
+{{!-- {{#if article}}
 
 {{#each article}}
 <div class="media" data-_id="{{this.id}}">
@@ -16,10 +16,10 @@
         <div class="collapse" id="notes-collapse">
             <form>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <label for="exampleFormControlTextarea1">Add a note</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-secondary btn-sm" data-id="{{this._id}}">Submit</button>
             </form>
         </div>
     </div>
@@ -28,4 +28,40 @@
 {{/each}}
 {{else}}
 <div class="message"> There are no saved artices, go back to the home page to save some articles!</div>
-{{/if}}
+{{/if}} --}}
+
+
+
+<div id="expand-box">
+    <div class="wrapper">
+        <article class="content">
+            <div class="panel">
+                <div id="handlebars-sandbox">
+                    {{#if article}}
+                    {{#each article}}
+                    <div class="card mb-3" data-_id="{{this._id}}" id="media">
+                        <a href="{{this.url}}">
+                            <img src="{{this.picture}}" class="card-img-top" alt="..." id="article-pic">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.headline}}</h5>
+                        </a>
+                        <p class="card-text">{{this.summary}}</p>
+                        <p class="card-text"><small class="text-muted">{{this.date}}</small></p>
+                        {{!-- <a href="{{this.url}}" class="card-link">Read More</a> --}}
+                        <p> <a href="{{this.url   }}">Read More</a>
+                        <span class="buttons">
+                        <button id="comment-article" class="small-buttons">Comment</button> |                                
+                        <button id="delete-article" class="small-buttons">Delete Article</button >
+                        </span>
+                        </p>
+                        
+                    </div>
+                </div>
+                {{/each}}
+                {{else}}
+                <div class="message"> There are no saved artices, go back to the home page to save some articles!</div>
+                {{/if}}
+            </div>
+        </article>
+    </div>
+</div>
