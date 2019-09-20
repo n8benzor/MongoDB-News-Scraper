@@ -6,6 +6,7 @@ $(document).ready(function () {
   $(document).on("click", "#delete-article", deleteArticle);
   $(document).on("click", "#comment-article", commentArticle);
   $(document).on("click", "#save-comment", saveComment);
+  $(document).on("click", "#clear-articles", clearArticles);
 
   function scrapeArticles() {
 
@@ -157,5 +158,14 @@ $(document).ready(function () {
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+  }
+
+  function clearArticles() {
+    $.get("api/clear").then(function(data) {
+      console.log(data)
+      $("#handlebars-sandbox").empty();
+      // initPage();
+      location.reload();
+    });
   }
 })
