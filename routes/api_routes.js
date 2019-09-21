@@ -114,49 +114,49 @@ const db = require("../models");
       });
       
         // get back all notes for a given article
-        // app.get("/api/notes/:id", function(req, res){
-        //   // res.send(true)
-        //   db.Article.findOne({_id: req.params.id})
-        //   .populate("note")
-        //   .then(function(dbArticle){
-        //     console.log(dbArticle.note)
-        //     res.json(dbArticle.note)
-        //   })
-        //   .catch(function(err){
-        //     res.json(err)
-        //   })
-        // });
+        app.get("/api/notes/:id", function(req, res){
+          // res.send(true)
+          db.Article.findOne({_id: req.params.id})
+          .populate("note")
+          .then(function(dbArticle){
+            console.log(dbArticle.note)
+            res.json(dbArticle.note)
+          })
+          .catch(function(err){
+            res.json(err)
+          })
+        });
       
         // add note to an article
-        //   app.post("/api/notes", function(req, res){
-        //   console.log(req.body)
-        //   db.Note.create({ noteText: req.body.noteText })
-        //   .then(function(dbNote){
-        //     console.log('dbNote:' + dbNote)
-        //     return db.Article.findOneAndUpdate({ _id:req.body._headlineId}, 
-        //     { $push: {note: dbNote._id} }, 
-        //     {new: true})
-        //   })
-        //   .then(function(dbArticle){
-        //     console.log('dbArticle:'+dbArticle)
-        //     res.json(dbArticle)
-        //   })
-        //   .catch(function(err){
-        //     res.json(err);
-        //   })
-        // });
+          app.post("/api/notes", function(req, res){
+          console.log(req.body)
+          db.Note.create({ noteText: req.body.noteText })
+          .then(function(dbNote){
+            console.log('dbNote:' + dbNote)
+            return db.Article.findOneAndUpdate({ _id:req.body._headlineId}, 
+            { $push: {note: dbNote._id} }, 
+            {new: true})
+          })
+          .then(function(dbArticle){
+            console.log('dbArticle:'+dbArticle)
+            res.json(dbArticle)
+          })
+          .catch(function(err){
+            res.json(err);
+          })
+        });
       
         // delete note form article
-        // app.delete("/api/notes/:id", function(req, res){
-        //   console.log('reqbody:' + JSON.stringify(req.params.id))
-        //   db.Note.deleteOne({_id: req.params.id}, function(err, result){
-        //     if (err) {
-        //       console.log(err)
-        //     } else {
-        //       return res.send(true)
-        //     }
-        //   });
-        // });
+        app.delete("/api/notes/:id", function(req, res){
+          console.log('reqbody:' + JSON.stringify(req.params.id))
+          db.Note.deleteOne({_id: req.params.id}, function(err, result){
+            if (err) {
+              console.log(err)
+            } else {
+              return res.send(true)
+            }
+          });
+        });
       
         // clear all articles from database
         app.get("/api/clear", function(req, res){
