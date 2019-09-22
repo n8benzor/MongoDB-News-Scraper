@@ -2,9 +2,10 @@ $(document).ready(function () {
 
   $(document).on("click", "#scrape-articles", scrapeArticles);
   $(document).on("click", "#save-article", saveArticle);
+  // $(document).on("click", ".unsave-btn", unsaveArticle);
 
   $(document).on("click", "#delete-article", deleteArticle);
-  $(document).on("click", "#comment-article", commentArticle);
+  // $(document).on("click", "#comment-modal", commentArticle);
   $(document).on("click", "#save-comment", saveComment);
   $(document).on("click", "#clear-articles", clearArticles);
 
@@ -26,8 +27,8 @@ $(document).ready(function () {
 
     // Remove card from page
     $(this)
-      .parents(".card")
-      .remove();
+      .parents(".card");
+      // .remove();
 
     articleToSave.saved = true;
     // Using a patch method to be semantic since this is an update to an existing record in our collection
@@ -40,12 +41,11 @@ $(document).ready(function () {
       console.log(data)
       // If the data was saved successfully
       if (data) {
-        // Run the initPage function again. This will reload the entire list of articles
-        // initPage();
         location.reload();
       }
     });
   }
+
 
   function deleteArticle() {
     const articleToDelete = $(this)
@@ -68,11 +68,11 @@ $(document).ready(function () {
         window.load = "/saved"
       }
     });
-  }
+  };
 
 
-  function commentArticle(event) {
-    // This function handles opening the notes modal and displaying our notes
+  function commentArticle() {
+      // This function handles opening the notes modal and displaying our notes
     // We grab the id of the article to get notes for from the card element the delete button sits inside
     var currentArticle = $(this)
       .parents(".card")
@@ -81,7 +81,20 @@ $(document).ready(function () {
     // Grab any notes with this headline/article id
     $.get("/api/notes/" + currentArticle._id).then(function(data) {
       console.log(data)
-     
+      // Constructing our initial HTML to add to the notes modal
+      var modalText = $("<div class='container-fluid text-center'>").append(
+        $("<h4>").text("Notes For Article: " + currentArticle._id),
+        $("<hr>"),
+        $("<ul class='list-group note-container'>"),
+        $("<textarea placeholder='New Note' rows='4' cols='60'>"),
+        $("<button class='btn btn-success save'>Save Note</button>")
+      );
+      console.log(modalText)
+      // Adding the formatted HTML to the note modal
+      bootbox.dialog({
+        message: modalText,
+        closeButton: true
+      });
       var noteData = {
         _id: currentArticle._id,
         notes: data || []
@@ -93,59 +106,71 @@ $(document).ready(function () {
       // renderNotesList will populate the actual note HTML inside of the modal we just created/opened
       renderNotesList(noteData);
     });
-  }
 
 
-  // function renderNotesList(data) {
-  //   // This function handles rendering note list items to our notes modal
-  //   // Setting up an array of notes to render after finished
-  //   // Also setting up a currentNote variable to temporarily store each note
-  //   var notesToRender = [];
-  //   var currentNote;
-  //   if (!data.notes.length) {
-  //     // If we have no notes, just display a message explaining this
-  //     currentNote = $("<li class='list-group-item'>No notes for this article yet.</li>");
-  //     notesToRender.push(currentNote);
-  //   } else {
-  //     // If we do have notes, go through each one
-  //     for (var i = 0; i < data.notes.length; i++) {
-  //       // Constructs an li element to contain our noteText and a delete button
-  //       currentNote = $("<li class='list-group-item note'>")
-  //         .text(data.notes[i].noteText)
-  //         .append($("<button class='btn btn-danger note-delete'>x</button>"));
-  //       // Store the note id on the delete button for easy access when trying to delete
-  //       currentNote.children("button").data("_id", data.notes[i]._id);
-  //       // Adding our currentNote to the notesToRender array
-  //       notesToRender.push(currentNote);
-  //     }
-  //   }
-  //   // Now append the notesToRender to the note-container inside the note modal
-  //   $(".note-container").append(notesToRender);
-  // }
+    // var articleId = $(this).attr("data-articleId");
+    // $(".modal").attr("data-articleId", articleId);
+    // // $("#note-modal-title").empty();
+    // $(".notes-list").empty();
+    // $("#form8").val("");
+    // $.ajax("/notes/article/" + articleId, {
+    //   type: "GET"
+    // }).then(
+    //   function(data) {
+    //     createModalHTML(data);
+    //   }
+    // );
+
+    // // show the modal
+    // $("#add-note-modal").modal("toggle");
+  };
+
+
 
   function saveComment() {
-    // const thisId = $(this).attr("data-id");
-      // This function handles what happens when a user tries to save a new note for an article
-      // Setting a variable to hold some formatted data about our note,
-      // grabbing the note typed into the input box
-      const noteData;
-      const newNote = $("#form8").val().trim();
-      // If we actually have data typed into the note input field, format it
-      // and post it to the "/api/notes" route and send the formatted noteData as well
-      if (newNote) {
-        noteData = { _headlineId: $(this).data("article")._id, noteText: newNote };
-        $.post("/api/notes", noteData).then(function() {
-          // When complete, close the modal
-          // $('.modal').on('click', hideall);
-        });
-      }
+
+    var noteData;
+    var newNote = $("#form8")
+      .val()
+      .trim();
+    // If we actually have data typed into the note input field, format it
+    // and post it to the "/api/notes" route and send the formatted noteData as well
+    if (newNote) {
+      noteData = { _headlineId: $(this).data("article")._id, noteText: newNote };
+      $.post("/api/notes", noteData).then(function() {
+        // When complete, close the modal
+        // bootbox.hideAll();
+      });
+    }
+
+    // var thisId = $(this).attr("data-id");
+    // var newNote = {
+    //   body: $("#form8").val().trim()
+    // }
+    // console.log("logging thisID from app.js", thisId);
+    // console.log("logging the text area input", newNote);
+    // if (!$("#form8").val()) {
+    //     alert("please enter a note to save")
+    // }else {
+    //   $.ajax({
+    //         method: "POST",
+    //         url: "/api/notes/" + thisId,
+    //         data: newNote
+    //       }).done(function(err, data) {
+    //           // Log the response
+    //           console.log(data);
+    //           // Empty the notes section
+    //           $("#form8" + thisId).val("");
+    //           // $(".modalNote").modal("hide");
+    //           // window.location = "/saved"
+    //       });
+    // }
   }
 
   function clearArticles() {
     $.get("api/clear").then(function(data) {
       console.log(data)
       $("#handlebars-sandbox").empty();
-      // initPage();
       location.reload();
     });
   }

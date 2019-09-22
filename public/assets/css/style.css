@@ -11,8 +11,12 @@ body {
 }
 
 
-nav {
-    background: none;
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    background: white;
     font-size: small;
     color: rgb(26,26,26);
     border-bottom: 1px solid rgb(37, 35, 31);
@@ -49,6 +53,7 @@ main {
 }
 
 .jumbotron {
+    margin-top: 5em;
     /* background-image: url("https://github.com/n8benzor/MongoDB-News-Scraper/blob/master/public/assets/images/football-field2.jpg?raw=true"); */
     background-position: bottom center;
     background-repeat: no-repeat;
@@ -139,6 +144,10 @@ main {
 
 .message {
     text-align: center;
+}
+
+#headline-color {
+    color: rgb(58, 114, 52);
 }
 
 
