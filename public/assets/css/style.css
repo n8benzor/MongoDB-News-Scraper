@@ -152,19 +152,21 @@ main {
 
 #notes-list li {
     list-style: none;
+    padding: 2px;
+    font-size: 10pt;
 }
 
 .delete-note {
-    background: white;
+    background: none;
     color: rgb(58, 114, 52);
     border: none;
-    font-size: 14pt;
+    float: right;
 }
 
 .note {
     background: rgb(231, 231, 231);
-    margin: 2px 0;
-    padding: 2px;
+    margin: 4px 0;
+    
 }
 
 

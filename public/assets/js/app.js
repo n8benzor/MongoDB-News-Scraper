@@ -88,7 +88,7 @@ $(document).ready(function () {
       console.log(data);
       const articleData = (data.note)
       for (let i = 0; i < articleData.length; i++){
-        $("#notes-list").append("<span><li class='note'>" + articleData[i].body + "</li><button type='button' class='delete-note' aria-label='Close'><span aria-hidden='true'>&times; </span></button></span>");
+        $("#notes-list").append("<li class='note'>" + articleData[i].body + "<button type='button' class='delete-note' aria-label='Close'><span aria-hidden='true'>&times; </span></button></li>");
       }
       // The title of the article
       $("#headline-color").append(data.headline);
@@ -131,14 +131,14 @@ $(document).ready(function () {
     // First we grab the id of the note we want to delete
     // We stored this data on the delete button when we created it
     var noteToDelete = $(this).data("_id");
-    console.log("logging the id for delete", noteToDelete)
+    console.log("logging the id for delete", noteToDelete);
     // Perform an DELETE request to "/api/notes/" with the id of the note we're deleting as a parameter
     $.ajax({
       url: "/api/notes/" + noteToDelete,
       method: "DELETE"
     }).then(function() {
       // When done, hide the modal
-      bootbox.hideAll();
+      // bootbox.hideAll();
     });
   }
 
