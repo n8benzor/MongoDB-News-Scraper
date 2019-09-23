@@ -1,35 +1,3 @@
-{{!-- {{#if article}}
-
-{{#each article}}
-<div class="media" data-_id="{{this.id}}">
-    <img src="{{this.picture}}" class="mr-3" alt="..." id="article-pic">
-    <div class="media-body">
-        <div class="mt-0" id="article-title">{{this.headline}} <div class="date">{{this.date}}</div>
-        </div>
-        {{this.summary}}
-        <p> <a href="{{this.url}}">Read More </a><span class="buttons">
-                <button type="button" class="btn btn-secondary btn-sm" id="notes-button" data-toggle="collapse"
-                    data-target="#notes-collapse">Notes</button>
-                <button type="button" class="btn btn-secondary btn-sm" id="delete-article">Delete</button></span>
-        </p>
-
-        <div class="collapse" id="notes-collapse">
-            <form>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Add a note</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-secondary btn-sm" data-id="{{this._id}}">Submit</button>
-            </form>
-        </div>
-    </div>
-
-</div><br>
-{{/each}}
-{{else}}
-<div class="message"> There are no saved artices, go back to the home page to save some articles!</div>
-{{/if}} --}}
-
 
 
 <div id="expand-box">
@@ -47,64 +15,23 @@
                         </a>
                         <p class="card-text">{{this.summary}}</p>
                         <p class="card-text"><small class="text-muted">{{this.date}}</small></p>
-                        {{!-- <a href="{{this.url}}" class="card-link">Read More</a> --}}
                         <p> <a href="{{this.url}}">Read More</a>
                             <span class="buttons">
+
                                 <button id="comment-modal" class="small-buttons" data-toggle="modal"
                                     data-target="#modalContactForm" data-id={{this._id}}
                                     data-articleId={{_id}}>Comments</button> |
-                                <button data-articleId={{_id}} class="small-buttons unsave-btn">Remove from
-                                    saved</button> |
+
+                                {{!-- <button data-articleId={{_id}} class="small-buttons unsave-btn">Remove from
+                                    saved</button> | --}}
+
                                 <button id="delete-article" class="small-buttons">Delete Article</button>
                             </span>
                         </p>
 
 
-                        <!-- Modal -->
 
-
-
-                        {{!-- <div class="modal fade modalNote" id="noteModal{{this._id}}" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">Comments: {{this.headline}}</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        {{#if this.notes}}
-                                        {{#each this.notes}}
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <p class="previousNotes"> {{this.noteText}}</p>
-                                                <button type="button" class="btn btn-danger delete-note-btn"
-                                                    data-note-id={{this._id}} data-article-id={{this.article}}> X
-                                                </button>
-                                            </div>
-                                        </div>
-                                        {{/each}}
-                                        {{else}}
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <h4>Add a comment</h4>
-                                            </div>
-                                        </div>
-                                        {{/if}}
-                                        <div class="form-group">
-                                            <textarea id="note-Body{{this._id}}" class="form-control" rows="4"
-                                                placeholder="New Note"></textarea>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary save-note-btn"
-                                            data-id={{this._id}}>Save Note</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
+<!---------------------- Modal ------------------------>
 
                         <div class="modal fade modalNote" id="modalContactForm" tabindex="-1" role="dialog"
                             aria-labelledby="myModalLabel" aria-hidden="true" data-articleId="">
@@ -112,7 +39,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header text-center">
                                         <h5 class="modal-title w-100 font-weight-bold">Comment for Article: <span
-                                                id="headline-color">{{this.headline}}</span></h5>
+                                                id="headline-color"></span></h5>
 
 
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -125,7 +52,9 @@
                                             <p>Your current comments: </p>
                                             {{#each this.note}}
                                             <ul id="notes-list">
-                                                <li>{{this._id}}</li>
+                                                {{!-- <li><button type="button" class="delete-note" aria-label="Close"> 
+                                            <span aria-hidden="true">&times;</span>
+                                        </button> {{this.note}}</li> --}}
                                             </ul>
                                             {{/each}}
                                         </div>

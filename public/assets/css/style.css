@@ -150,8 +150,22 @@ main {
     color: rgb(58, 114, 52);
 }
 
+#notes-list li {
+    list-style: none;
+}
 
+.delete-note {
+    background: white;
+    color: rgb(58, 114, 52);
+    border: none;
+    font-size: 14pt;
+}
 
+.note {
+    background: rgb(231, 231, 231);
+    margin: 2px 0;
+    padding: 2px;
+}
 
 
 

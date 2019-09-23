@@ -8,9 +8,7 @@ const Schema = mongoose.Schema;
 const NoteSchema = new Schema({
   // `noteText` is of type String
   body: {
-    type: String,
-    required: true,
-    trim: true
+    type: String
   }
   // ,
   // date: {

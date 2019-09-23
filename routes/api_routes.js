@@ -106,6 +106,24 @@ module.exports = function (app) {
     })
   });
 
+  // Route for grabbing a specific Article by id, populate it with it's note
+app.get("/articles/:id", function(req, res) {
+  // TODO
+  // ====
+  // Finish the route so it finds one article using the req.params.id,
+  // and run the populate method with "note",
+  // then responds with the article with the note included
+  db.Article.findByIdAndUpdate({ _id: req.params.id})
+  .populate('note')
+  .then (function (found){
+    res.json(found);
+  })
+  .catch(function(err) {
+    // If an error occurs, send it back to the client
+    res.json(err);
+  });
+});
+
 
   // route to find a note by ID
 app.get("/notes/article/:id", function(req, res) {
@@ -121,50 +139,32 @@ app.get("/notes/article/:id", function(req, res) {
 });
 
   // add note to an article
-  // app.post("/api/notes/:id", function(req, res){
-  //   console.log("logging the req.body from api routes", req.body);
-  //   db.Note.create(req.body)
+  app.post("/api/notes/:id", function(req, res){
+    console.log("logging the req.body from api routes", req.body.body);
+    db.Note.create({ body: req.body.body })
 
-  //   .then(function(dbNote) {
-  //     return db.Article.findIdAndUpdate({ _id: req.params.id }, {$push: { "note": dbNote._id }}, { new: true }
-  //     // , {
-  //     //   $push: {
-  //     //     notes: dbNote._id
-  //     //   }
-  //     // }
-  //     )
+    .then(function(dbNote) {
+      return db.Article.findByIdAndUpdate({ _id: req.params.id }, {$push: { "note": dbNote._id }}, { new: true }
+      // , {
+      //   $push: {
+      //     notes: dbNote._id
+      //   }
+      // }
+      )
 
-  //     // var articleIdFromString = mongoose.Types.ObjectId(req.params.id)
-  //     // return db.Article.findByIdAndUpdate(articleIdFromString, {
-  //     // })
-  //   })
-  //   .then(function(dbArticle) {
-  //     res.json(dbArticle);
-  //   })
-  //   .catch(function(err) {
-  //     // If an error occurs, send it back to the client
-  //     res.json(err);
-  //   });
-  // });
-
-    // add note to an article
-    app.post("/api/notes", function(req, res){
-      console.log(req.body)
-      db.Note.create({ noteText: req.body.noteText })
-      .then(function(dbNote){
-        console.log('dbNote:' + dbNote)
-        return db.Article.findOneAndUpdate({ _id:req.body._headlineId}, 
-        { $push: {note: dbNote._id} }, 
-        {new: true})
-      })
-      .then(function(dbArticle){
-        console.log('dbArticle:'+dbArticle)
-        res.json(dbArticle)
-      })
-      .catch(function(err){
-        res.json(err);
-      })
+      // var articleIdFromString = mongoose.Types.ObjectId(req.params.id)
+      // return db.Article.findByIdAndUpdate(articleIdFromString, {
+      // })
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+      console.log('logging dbarticle', dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurs, send it back to the client
+      res.json(err);
     });
+  });
   
 
   // delete note form article
@@ -178,6 +178,7 @@ app.get("/notes/article/:id", function(req, res) {
       }
     });
   });
+  
 
   // clear all articles from database
   app.get("/api/clear", function (req, res) {
@@ -191,6 +192,44 @@ app.get("/notes/article/:id", function(req, res) {
       }
     })
   });
-}
+
+
+  // this route saves the submited comment to the databse, as well as updated the specific saved article it is saved to 
+app.post('/api/submit/:id', function(req, res) {
+  console.log('logging the req.body from api routes', req.body.comment)
+
+	db.Note.create({
+		'body': req.body.comment
+	})
+	.then(function(data) {
+		console.log('loggging req.params from api routes', req.params.id);
+		return db.Article.findByIdAndUpdate(
+			{ _id: req.params.id }, 
+			{ $push: { notes: data._id } }, { new: true });
+	})
+	res.redirect('back');
+});
+
+// this route will delete the comment from the database specified by the id
+app.post('/api/delete-comment/:id', function(req, res) {
+	db.Note.remove(
+		{
+			'_id': req.params.id
+		},
+		function(error, removed) {
+			if (error) {
+		        console.log(error);
+		       	res.send(error);
+		    } else {
+		    	console.log('removed from articles');
+		    	res.redirect('back');
+		    }
+		}
+	)	
+});
+
+
+
+};
 
 
